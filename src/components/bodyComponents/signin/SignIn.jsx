@@ -54,7 +54,7 @@ export default function SignInSide({ onSignIn }) {
           md={7}
           style={{
             backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
+              "url(171468038277884545608818.jpeg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -71,6 +71,8 @@ export default function SignInSide({ onSignIn }) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              marginTop: "20vh", // Adjust marginTop to move the box lower
+
             }}
           >
             <Avatar

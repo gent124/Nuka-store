@@ -68,7 +68,7 @@ export default function NavBarComponent() {
                     textDecoration: "none",
                   }}
                 >
-                  Nuka
+                  Nuka TEX
                 </Typography>
 
                 <Box

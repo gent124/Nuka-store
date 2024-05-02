@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import "../../public/styles/links.css";
 import {
@@ -8,21 +9,18 @@ import {
   ListItemButton,
   IconButton,
   Box,
-  Snackbar,
-  Alert,
-  Button,
 } from "@mui/material";
 import {
   HomeOutlined,
   Inventory2Outlined,
-  SettingsOutlined,
-  DescriptionOutlined,
-  MonetizationOnOutlined,
-  CardTravelOutlined,
-  TrendingUpOutlined,
-  PeopleAltOutlined,
+  // SettingsOutlined,
+  // DescriptionOutlined,
+  // MonetizationOnOutlined,
+  // CardTravelOutlined,
+  // TrendingUpOutlined,
+  // PeopleAltOutlined,
 } from "@mui/icons-material";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 
 export default function SideBarComponent() {
   const navigate = useNavigate();
@@ -46,30 +44,30 @@ export default function SideBarComponent() {
       title: "Inventory",
       component: <Inventory2Outlined fontSize="medium" color="primary" />,
     },
-    {
-      title: "Orders",
-      component: <CardTravelOutlined fontSize="medium" color="primary" />,
-    },
-    {
-      title: "Customers",
-      component: <PeopleAltOutlined fontSize="medium" color="primary" />,
-    },
-    {
-      title: "Revenue",
-      component: <MonetizationOnOutlined fontSize="medium" color="primary" />,
-    },
-    {
-      title: "Growth",
-      component: <TrendingUpOutlined fontSize="medium" color="primary" />,
-    },
-    {
-      title: "Reports",
-      component: <DescriptionOutlined fontSize="medium" color="primary" />,
-    },
-    {
-      title: "Settings",
-      component: <SettingsOutlined fontSize="medium" color="primary" />,
-    },
+    // {
+    //   title: "Orders",
+    //   component: <CardTravelOutlined fontSize="medium" color="primary" />,
+    // },
+    // {
+    //   title: "Customers",
+    //   component: <PeopleAltOutlined fontSize="medium" color="primary" />,
+    // },
+    // {
+    //   title: "Revenue",
+    //   component: <MonetizationOnOutlined fontSize="medium" color="primary" />,
+    // },
+    // {
+    //   title: "Growth",
+    //   component: <TrendingUpOutlined fontSize="medium" color="primary" />,
+    // },
+    // {
+    //   title: "Reports",
+    //   component: <DescriptionOutlined fontSize="medium" color="primary" />,
+    // },
+    // {
+    //   title: "Settings",
+    //   component: <SettingsOutlined fontSize="medium" color="primary" />,
+    // },
   ];
   const [selected, setSelected] = useState(0);
   const handlSelectedComponent = (event, index) => {

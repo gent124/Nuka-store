@@ -1,9 +1,29 @@
-import { Typography } from "@mui/material";
-import React from "react";
-import Product from "./Product";
 import { DataGrid } from "@mui/x-data-grid";
-import productList from "./productList";
+import Product from "./Product";
+// import productList from "./productList";
+import { useState, useEffect} from "react";
+import axios from 'axios'
+
 export default function Products() {
+  const [productList, setProductList] = useState([])
+
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const response = await axios.get('http://localhost:3000/products');
+      console.log(response);
+      if (response.status === 200) {
+        setProductList(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  fetchData();
+}, []);
+
+
   const columns = [
     {
       field: "id",
@@ -14,7 +34,7 @@ export default function Products() {
     {
       field: "product",
       headerName: "Product",
-      width: 400,
+      width: 400, 
       description: "",
       //same here we have the cell data which i will get the value of the cells in the tables cellData.row.fieldName
 
@@ -30,18 +50,11 @@ export default function Products() {
       description: "category of the product",
     },
     {
-      field: "price",
-      headerName: "Price",
-      width: 150,
-      description: "price of the product",
-      valueGetter: (params) => "$" + params.row.stock,
-    },
-    {
       field: "stock",
       headerName: "Stock",
       width: 200,
       description: "how many items in the stock",
-      valueGetter: (params) => params.row.stock + " pcs",
+      valueGetter: (params) => params.row.stock  ,
     },
   ];
 

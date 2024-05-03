@@ -40,7 +40,7 @@ export default function SignInSide({ onSignIn }) {
       password: data.get("password"),
     });
     onSignIn();
-    navigate("/");
+    navigate("/home");
   };
 
   return (

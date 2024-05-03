@@ -1,25 +1,19 @@
+import { AccountCircleOutlined, Logout } from "@mui/icons-material";
 import {
-  Box,
-  Grid,
   AppBar,
-  Container,
-  Typography,
-  Paper,
-  IconButton,
   Avatar,
-  Badge,
+  Box,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  ListItemIcon,
   Menu,
   MenuItem,
-  Divider,
-  ListItemIcon,
+  Paper,
   Tooltip,
+  Typography,
 } from "@mui/material";
-import {
-  NotificationsOutlined,
-  Settings,
-  Logout,
-  AccountCircleOutlined,
-} from "@mui/icons-material";
 import { useState } from "react";
 
 export default function NavBarComponent() {
@@ -30,9 +24,6 @@ export default function NavBarComponent() {
   const notificationOpen = Boolean(notificationAnchorEl);
   const handleAvatarClicked = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-  const handleNotificationClicked = (event) => {
-    setNotificationAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
@@ -78,14 +69,7 @@ export default function NavBarComponent() {
                     alignItems: "center",
                   }}
                 >
-                  <IconButton color="inherit">
-                    <Badge variant="dot" color="error" invisible={false}>
-                      <NotificationsOutlined
-                        sx={{ width: 32, height: 32 }}
-                        onClick={handleNotificationClicked}
-                      />
-                    </Badge>
-                  </IconButton>
+                  <IconButton color="inherit"></IconButton>
                   <Menu
                     open={notificationOpen}
                     anchorEl={notificationAnchorEl}
@@ -104,10 +88,10 @@ export default function NavBarComponent() {
                     aria-haspopup="true"
                   >
                     <Tooltip title="account settings">
-                      <Avatar sx={{ width: 32, height: 32 }}>Z</Avatar>
+                      <Avatar sx={{ width: 32, height: 32 }}>N</Avatar>
                     </Tooltip>
                   </IconButton>
-                  <Typography fontFamily={"Inter"}>ADMI ZAKARYAE</Typography>
+                  <Typography fontFamily={"Inter"}>Nuka Tex</Typography>
                 </Box>
 
                 <Menu
@@ -124,12 +108,7 @@ export default function NavBarComponent() {
                   </MenuItem>
                   <Divider />
 
-                  <MenuItem>
-                    <ListItemIcon>
-                      <Settings fontSize="small" />
-                    </ListItemIcon>
-                    Settings
-                  </MenuItem>
+                  <MenuItem></MenuItem>
                   <MenuItem>
                     <ListItemIcon>
                       <Logout fontSize="small" />

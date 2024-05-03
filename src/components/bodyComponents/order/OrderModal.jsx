@@ -73,7 +73,7 @@ export default function OrderModal({ order }) {
         >
           <Typography variant="subtitle1">Name </Typography>
           <Typography variant="subtitle1" color={"grey"}>
-            ADMI ZAKARYAE
+            Nuka Tex
           </Typography>
         </Paper>
         <Paper

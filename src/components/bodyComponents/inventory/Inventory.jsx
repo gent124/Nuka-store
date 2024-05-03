@@ -1,6 +1,6 @@
 import {
-Box,
-Button,
+  Box,
+  Button,
   FormControl,
   Grid,
   InputLabel,
@@ -11,12 +11,12 @@ Button,
 import { useState } from "react";
 import Overview from "./Overview";
 import Products from "./Products";
-import axios from 'axios'
+import axios from "axios";
 
 const Inventory = () => {
   const [open, setOpen] = useState(false);
   const [productName, setProductName] = useState("");
-  const [stock, setStock] = useState();
+  const [stock, setStock] = useState("");
   const [nameLabelShrink, setNameLabelShrink] = useState(false);
   const [stockLabelShrink, setStockLabelShrink] = useState(false);
 
@@ -28,7 +28,7 @@ const Inventory = () => {
   };
 
   const handleStockChange = (event) => {
-    setStock(event.target.value );
+    setStock(event.target.value);
   };
 
   const handleNameLabelShrink = () => {
@@ -52,15 +52,18 @@ const Inventory = () => {
   };
 
   const handleSubmit = async () => {
-    // Convert stock to number
-    const stockNumber = parseInt(stock, 10); // Or use parseFloat() if stock can be a float
-  
-    const response = await axios.post('http://localhost:3000/products', {
-      name: productName,
-      stock: stockNumber // Send the converted number value
-    });
-    if(response.statusCode === 201) {
-      handleClose()
+    try {
+      const response = await axios.post("http://localhost:3000/products", {
+        name: productName,
+        stock: parseInt(stock, 10),
+      });
+      if (response.status === 201) {
+        handleClose();
+        setProductName("");
+        setStock("");
+      }
+    } catch (error) {
+      console.error("Error adding product:", error);
     }
   };
 
@@ -136,7 +139,7 @@ const Inventory = () => {
                 onFocus={handleNameLabelShrink}
                 onBlur={handleNameLabelBlur}
                 size="medium"
-                fullWidth // Ensure the TextField takes full width
+                fullWidth
               />
             </Box>
           </FormControl>
@@ -151,11 +154,11 @@ const Inventory = () => {
                 onFocus={handleStockLabelShrink}
                 onBlur={handleStockLabelBlur}
                 size="medium"
-                fullWidth // Ensure the TextField takes full width
+                fullWidth
               />
             </Box>
           </FormControl>
-          <Button variant="contained" sx={{ mt: 2 }} onClick={handleSubmit} >
+          <Button variant="contained" sx={{ mt: 2 }} onClick={handleSubmit}>
             Add Product
           </Button>
         </Box>

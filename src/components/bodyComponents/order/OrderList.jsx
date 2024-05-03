@@ -1,11 +1,10 @@
 import { Avatar, Box, Button, Modal, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React, { Component } from "react";
+import { Component } from "react";
 import OrderModal from "./OrderModal";
 import orders from "./listOrders";
 export default class OrderList extends Component {
   handlOrderDetail = (order) => {
-    console.log("the order is : ", order);
     this.setState({ order: order, open: true });
   };
   handleClose = () => {

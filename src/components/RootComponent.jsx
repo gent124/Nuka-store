@@ -3,10 +3,11 @@ import { Box, Grid } from "@mui/material";
 import SideBarComponent from "./SideBarComponent";
 import { Outlet } from "react-router-dom";
 
-export default function RootComponent() {
+// eslint-disable-next-line react/prop-types
+export default function RootComponent({onLogout}) {
   return (
     <>
-      <NavBarComponent />
+      <NavBarComponent onLogout={onLogout} />
       <Box
         sx={
           {

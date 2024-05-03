@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,36 +13,48 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center" {...props}>
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Nuka Tex
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
+import axios from 'axios'
 const defaultTheme = createTheme();
 
 // eslint-disable-next-line react/prop-types
 export default function SignInSide({ onSignIn }) {
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    onSignIn();
-    navigate("/home");
+    const email = data.get("email");
+    const password = data.get("password");
+  
+    if (!email) {
+      setError("Please enter correct username.");
+      return;
+    }
+  
+    if (!password || password.length < 6) {
+      setError("Please enter a valid password.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:3000/auth", {
+        email,
+        password,
+      });
+  
+      if (response.status === 201) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        onSignIn(); 
+        navigate("/home");
+      } else {
+        setError("Wrong username or password");
+      }
+    } catch (error) {
+      setError("Wrong username or password");
+    }
   };
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -53,8 +66,7 @@ export default function SignInSide({ onSignIn }) {
           sm={4}
           md={7}
           style={{
-            backgroundImage:
-              "url(171468038277884545608818.jpeg)",
+            backgroundImage: "url(171468038277884545608818.jpeg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -72,7 +84,6 @@ export default function SignInSide({ onSignIn }) {
               flexDirection: "column",
               alignItems: "center",
               marginTop: "20vh", // Adjust marginTop to move the box lower
-
             }}
           >
             <Avatar
@@ -109,6 +120,11 @@ export default function SignInSide({ onSignIn }) {
                 id="password"
                 autoComplete="current-password"
               />
+              {error && (
+                <Typography variant="body2" color="error">
+                  {error}
+                </Typography>
+              )}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
@@ -125,7 +141,11 @@ export default function SignInSide({ onSignIn }) {
                 <Grid item xs></Grid>
                 <Grid item></Grid>
               </Grid>
-              <Copyright style={{ marginTop: "40px" }} />
+              <Typography variant="body2" color="textSecondary" align="center">
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Typography>
             </Box>
           </Box>
         </Grid>

@@ -15,15 +15,25 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function NavBarComponent() {
+// eslint-disable-next-line react/prop-types
+export default function NavBarComponent({  onLogout }) {
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   // handleNotificationClicked
   const open = Boolean(anchorEl);
   const notificationOpen = Boolean(notificationAnchorEl);
+  const navigate = useNavigate();
   const handleAvatarClicked = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/");
+
+    onLogout();
   };
 
   const handleClose = () => {
@@ -49,7 +59,6 @@ export default function NavBarComponent() {
                 <Typography
                   variant="h6"
                   component="a"
-                  href="/"
                   sx={{
                     mx: 2,
                     display: { xs: "none", md: "flex" },
@@ -111,7 +120,7 @@ export default function NavBarComponent() {
                   <MenuItem></MenuItem>
                   <MenuItem>
                     <ListItemIcon>
-                      <Logout fontSize="small" />
+                      <Logout fontSize="small" onClick={handleLogout} />
                     </ListItemIcon>
                     Logout
                   </MenuItem>
@@ -153,3 +162,5 @@ export default function NavBarComponent() {
                   </Paper>
                 </Grid> */
 }
+
+

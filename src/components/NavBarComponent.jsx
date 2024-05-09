@@ -1,4 +1,4 @@
-import { AccountCircleOutlined, Logout } from "@mui/icons-material";
+import {  Logout } from "@mui/icons-material";
 import {
   AppBar,
   Avatar,
@@ -30,6 +30,7 @@ export default function NavBarComponent({  onLogout }) {
   };
 
   const handleLogout = () => {
+    console.log('po ih ituq')
     localStorage.removeItem("accessToken");
     navigate("/");
 
@@ -109,18 +110,10 @@ export default function NavBarComponent({  onLogout }) {
                   onClick={handleClose}
                   onClose={handleClose}
                 >
-                  <MenuItem>
-                    <ListItemIcon>
-                      <AccountCircleOutlined fontSize="small" />
-                    </ListItemIcon>
-                    Profile
-                  </MenuItem>
                   <Divider />
-
-                  <MenuItem></MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
-                      <Logout fontSize="small" onClick={handleLogout} />
+                      <Logout fontSize="medium"  />
                     </ListItemIcon>
                     Logout
                   </MenuItem>

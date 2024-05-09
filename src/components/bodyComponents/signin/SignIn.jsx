@@ -46,7 +46,7 @@ export default function SignInSide({ onSignIn }) {
       if (response.status === 201) {
         localStorage.setItem("accessToken", response.data.accessToken);
         onSignIn(); 
-        navigate("/home");
+        navigate("/inventory");
       } else {
         setError("Wrong username or password");
       }

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
 import RootComponent from "./components/RootComponent";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./components/bodyComponents/home/Home";
 import Inventory from "./components/bodyComponents/inventory/Inventory";
 import SignInSide from "./components/bodyComponents/signin/SignIn";
 
@@ -24,6 +23,7 @@ function App() {
   };
 
   const handleLogout = () => {
+    console.log('logout');
     setIsAuthenticated(false);
     localStorage.removeItem("accessToken");
   };
@@ -53,7 +53,7 @@ function App() {
               }
             >
               {/* <Route index element={<RootPage />} /> */}
-              <Route path="/home" element={<Home />} />
+              {/* <Route path="/home" element={<Home />} /> */}
               <Route path="/inventory" element={<Inventory />} />
             </Route>
           </Routes>

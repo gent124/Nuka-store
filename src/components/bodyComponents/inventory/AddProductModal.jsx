@@ -12,6 +12,7 @@ import {
   
   // eslint-disable-next-line react/prop-types
   const AddProductModal = ({ open, onClose, onAddProduct }) => {
+    console.log('Add Product Modal')
     const [productName, setProductName] = useState("");
     const [stock, setStock] = useState("");
   
@@ -24,6 +25,7 @@ import {
     };
   
     const handleSubmit = async () => {
+      console.log('inside the handle submit event');
       const stockNumber = parseInt(stock, 10); 
       onAddProduct({ name: productName, stock: stockNumber });
     };
@@ -43,11 +45,11 @@ import {
           }}
         >
           <Typography variant="h6" sx={{ mb: 2 }}>
-            Add Product
+            Shto Produktin
           </Typography>
           <FormControl fullWidth sx={{ mt: 2 }}>
             <Box fullWidth sx={{ p: 2 }}>
-              <InputLabel shrink>Product Name</InputLabel>
+              <InputLabel shrink>Emri i Produktit</InputLabel>
               <TextField
                 variant="outlined"
                 value={productName}
@@ -70,8 +72,8 @@ import {
               />
             </Box>
           </FormControl>
-          <Button variant="contained" sx={{ mt: 2 }} onClick={handleSubmit}>
-            Add Product
+          <Button variant="contained" sx={{ mt: 2 }} onClick={handleSubmit} type="submit">
+            Shto Produktin
           </Button>
         </Box>
       </Modal>

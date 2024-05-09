@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   Grid,
+  Input,
   InputLabel,
   Modal,
   TextField,
@@ -19,6 +20,8 @@ const Inventory = () => {
   const [stock, setStock] = useState("");
   const [nameLabelShrink, setNameLabelShrink] = useState(false);
   const [stockLabelShrink, setStockLabelShrink] = useState(false);
+  const [newProduct, setNewProduct] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -51,21 +54,26 @@ const Inventory = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post("http://localhost:3000/products", {
-        name: productName,
-        stock: parseInt(stock, 10),
-      });
-      if (response.status === 201) {
-        handleClose();
-        setProductName("");
-        setStock("");
-      }
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
   };
+
+const handleSubmit = async () => {
+  try {
+    const response = await axios.post("http://localhost:3000/products", {
+      name: productName,
+      stock: parseInt(stock, 10),
+    });
+    if (response.status === 201) {
+      handleClose();
+      setProductName("");
+      setStock("");
+      setNewProduct(response.data); // Update the newProduct state with the response
+    }
+  } catch (error) {
+    console.error("Error adding product:", error);
+  }
+};
 
   return (
     <Box>
@@ -86,13 +94,14 @@ const Inventory = () => {
               alignItems="center"
             >
               <Typography variant="h5" sx={{ m: 3, fontWeight: "bold" }}>
-                Inventory
-              </Typography>
+                Depo
+              </Typography> 
+              <Input placeholder="Search" value={searchTerm} onChange={handleSearchChange} />
               <Button variant="contained" onClick={handleOpen}>
-                Add Product
+            Shto Produkt Te Ri
               </Button>
             </Box>
-            <Products />
+            <Products newProduct={newProduct} search={searchTerm}/>
           </Box>
         </Grid>
         <Grid item md={3}>
@@ -106,7 +115,7 @@ const Inventory = () => {
             }}
           >
             <Typography variant="h5" sx={{ m: 3, fontWeight: "bold" }}>
-              Overview
+              Total
             </Typography>
             <Overview />
           </Box>
@@ -127,11 +136,11 @@ const Inventory = () => {
           }}
         >
           <Typography variant="h6" sx={{ mb: 2 }}>
-            Add Product
+            Shto Produktin e Ri
           </Typography>
           <FormControl fullWidth sx={{ mt: 2 }}>
             <Box fullWidth sx={{ p: 2 }}>
-              <InputLabel shrink={nameLabelShrink}>Product Name</InputLabel>
+              <InputLabel shrink>Emri i Produktit</InputLabel>
               <TextField
                 variant="outlined"
                 value={productName}
@@ -145,7 +154,7 @@ const Inventory = () => {
           </FormControl>
           <FormControl fullWidth sx={{ mt: 2 }}>
             <Box fullWidth sx={{ p: 2 }}>
-              <InputLabel shrink={stockLabelShrink}>Stock</InputLabel>
+              <InputLabel shrink>Sasia</InputLabel>
               <TextField
                 type="number"
                 variant="outlined"
@@ -159,10 +168,12 @@ const Inventory = () => {
             </Box>
           </FormControl>
           <Button variant="contained" sx={{ mt: 2 }} onClick={handleSubmit}>
-            Add Product
+            Shto Produktin
           </Button>
         </Box>
       </Modal>
+
+      
     </Box>
   );
 };

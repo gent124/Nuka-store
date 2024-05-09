@@ -4,68 +4,68 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
-
+import { useEffect, useState } from "react";
+import axios  from "axios";
 export default function Overview() {
+  const [overviewStats, setOverviewStats] = useState([]);
+
+  const getStats = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/products/overview"
+      );
+      if (response.status === 200) {
+        setOverviewStats(response.data);
+      }
+    } catch (error) {
+      console.log("Error while fetching overview", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getStats();
+  }, []);
+
   return (
     <Box>
       <TableContainer>
         <Table>
           <TableBody>
             <TableRow>
-              <TableCell>Total Product</TableCell>
+              <TableCell>Sasia Totale e Produkteve</TableCell>
               <TableCell align="right">
                 <Typography variant="subtitle1" fontWeight="bold">
-                  15226
+                  {overviewStats.total}
                 </Typography>
               </TableCell>
             </TableRow>
 
             <TableRow>
-              <TableCell>Today sell</TableCell>
+              <TableCell>Produkti me sasin me te madhe</TableCell>
               <TableCell align="right">
                 <Typography variant="subtitle1" fontWeight="bold">
-                  5241
+                  {overviewStats.mostLeftStock}
                 </Typography>
               </TableCell>
             </TableRow>
 
             <TableRow>
-              <TableCell>Yesterday sell</TableCell>
+              <TableCell>Produkti me i shitur</TableCell>
               <TableCell align="right">
                 <Typography variant="subtitle1" fontWeight="bold">
-                  3652
+                  {overviewStats?.mostSoldProduct?.name ?? ''}
                 </Typography>
               </TableCell>
             </TableRow>
 
             <TableRow>
-              <TableCell>Total sell</TableCell>
+              <TableCell>Produkti me pak i shitur</TableCell>
               <TableCell align="right">
                 <Typography variant="subtitle1" fontWeight="bold">
-                  11425
-                </Typography>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>Product Reserved</TableCell>
-              <TableCell align="right">
-                <Typography variant="subtitle1" fontWeight="bold">
-                  6547
-                </Typography>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>Stock Issues</TableCell>
-              <TableCell align="right">
-                <Typography variant="subtitle1" fontWeight="bold">
-                  9562
+                  {overviewStats.leastSoldProduct?.name ?? ''}
                 </Typography>
               </TableCell>
             </TableRow>

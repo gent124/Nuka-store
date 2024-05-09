@@ -11,7 +11,6 @@ import {
   Box,
 } from "@mui/material";
 import {
-  HomeOutlined,
   Inventory2Outlined,
   // SettingsOutlined,
   // DescriptionOutlined,
@@ -35,12 +34,12 @@ export default function SideBarComponent() {
   //     }
   //     });
   const sideBarComponent = [
+    // {
+    //   title: "Home",
+    //   component: <HomeOutlined fontSize="medium" color="primary" />,
+    // },
     {
-      title: "Home",
-      component: <HomeOutlined fontSize="medium" color="primary" />,
-    },
-    {
-      title: "Inventory",
+      title: "Depo",
       component: <Inventory2Outlined fontSize="medium" color="primary" />,
     },
     // {

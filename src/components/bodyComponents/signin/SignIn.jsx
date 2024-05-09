@@ -66,7 +66,7 @@ export default function SignInSide({ onSignIn }) {
           sm={4}
           md={7}
           style={{
-            backgroundImage: "url(171468038277884545608818.jpeg)",
+            backgroundImage: "url(/assets/171468038277884545608818.jpeg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"

@@ -55,7 +55,7 @@ const Products = ({ newProduct, search }) => {
   const handleIncrementStock = async (productId) => {
     try {
       await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/products/${productId}/stock`,
+        `/products/${productId}/stock`,
         {
           increment: true,
         }

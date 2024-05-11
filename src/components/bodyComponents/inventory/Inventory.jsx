@@ -38,7 +38,6 @@ const Inventory = () => {
 
 const handleSubmit = async () => {
   try {
-    console.log(process.env.REACT_APP_BACKEND_URL)
     const response = await axios.post(`/products`, {
       name: productName,
       stock: parseInt(stock, 10),

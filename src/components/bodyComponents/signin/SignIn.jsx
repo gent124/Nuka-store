@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import axios from '../../../utils/axios.config'
+import axios from "../../../utils/axios.config";
 const defaultTheme = createTheme();
 
 // eslint-disable-next-line react/prop-types
@@ -26,26 +26,30 @@ export default function SignInSide({ onSignIn }) {
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-  
+
     if (!email) {
       setError("Please enter correct username.");
       return;
     }
-  
+
     if (!password || password.length < 6) {
       setError("Please enter a valid password.");
       return;
     }
-  
+
     try {
-      const response = await axios.post(`/auth`, {
-        email,
-        password,
-      });
-  
+      const response = await axios.post(
+        `/auth`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+
       if (response.status === 201) {
         localStorage.setItem("accessToken", response.data.accessToken);
-        onSignIn(); 
+        onSignIn();
         navigate("/inventory");
       } else {
         setError("Wrong username or password");
@@ -54,7 +58,6 @@ export default function SignInSide({ onSignIn }) {
       setError("Wrong username or password");
     }
   };
-  
 
   return (
     <ThemeProvider theme={defaultTheme}>

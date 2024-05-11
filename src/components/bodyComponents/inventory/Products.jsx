@@ -1,14 +1,13 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Button, TableCell, Box } from "@mui/material";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import EditProductModal from "./EditProductModal";
-
+import axios from "../../../utils/axios.config";
 // eslint-disable-next-line react/prop-types
 const Products = ({ newProduct, search }) => {
   const [productList, setProductList] = useState([]);
@@ -21,7 +20,7 @@ const Products = ({ newProduct, search }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:3000/products");
+        const response = await axios.post(`/products`);
         if (response.status === 200) {
           setProductList(response.data);
         }
@@ -36,7 +35,7 @@ const Products = ({ newProduct, search }) => {
   const handleSearch = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/products/search",
+        `/products/search`,
         {
           searchTerm: search,
         }
@@ -55,9 +54,12 @@ const Products = ({ newProduct, search }) => {
 
   const handleIncrementStock = async (productId) => {
     try {
-      await axios.patch(`http://localhost:3000/products/${productId}/stock`, {
-        increment: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/products/${productId}/stock`,
+        {
+          increment: true,
+        }
+      );
       // Refresh the product list after updating stock
       handleSearch();
     } catch (error) {
@@ -67,9 +69,12 @@ const Products = ({ newProduct, search }) => {
 
   const handleDecrementStock = async (productId) => {
     try {
-      await axios.patch(`http://localhost:3000/products/${productId}/stock`, {
-        increment: false,
-      });
+      await axios.post(
+        `/products/${productId}/stock`,
+        {
+          increment: false,
+        }
+      );
       // Refresh the product list after updating stock
       handleSearch();
     } catch (error) {
@@ -93,7 +98,7 @@ const Products = ({ newProduct, search }) => {
     try {
       // Send the updated product data to the backend
       await axios.patch(
-        `http://localhost:3000/products/${productId}`,
+        `/${productId}`,
         updatedProductData
       );
       // Close the modal and refresh the product list
@@ -117,10 +122,9 @@ const Products = ({ newProduct, search }) => {
 
   const handleDeleteSelectedProducts = async () => {
     try {
-
-      const productIdsToDelete = idsToDelete.map(id => Number(id))
+      const productIdsToDelete = idsToDelete.map((id) => Number(id));
       console.log(productIdsToDelete);
-      await axios.delete("http://localhost:3000/products", {
+      await axios.delete(`/products`, {
         data: productIdsToDelete,
       });
       handleSearch();
@@ -208,9 +212,9 @@ const Products = ({ newProduct, search }) => {
         checkboxSelection
         disableRowSelectionOnClick={true}
         onRowSelectionModelChange={(ids) => {
-          setIdsToDelete(ids)
+          setIdsToDelete(ids);
         }}
-        />
+      />
 
       <Box mt={2} textAlign="right">
         <Button

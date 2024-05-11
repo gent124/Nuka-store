@@ -12,14 +12,12 @@ import {
 import { useState } from "react";
 import Overview from "./Overview";
 import Products from "./Products";
-import axios from "axios";
+import axios from "../../../utils/axios.config";
 
 const Inventory = () => {
   const [open, setOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [stock, setStock] = useState("");
-  const [nameLabelShrink, setNameLabelShrink] = useState(false);
-  const [stockLabelShrink, setStockLabelShrink] = useState(false);
   const [newProduct, setNewProduct] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -34,33 +32,14 @@ const Inventory = () => {
     setStock(event.target.value);
   };
 
-  const handleNameLabelShrink = () => {
-    setNameLabelShrink(true);
-  };
-
-  const handleStockLabelShrink = () => {
-    setStockLabelShrink(true);
-  };
-
-  const handleNameLabelBlur = () => {
-    if (!productName) {
-      setNameLabelShrink(false);
-    }
-  };
-
-  const handleStockLabelBlur = () => {
-    if (!stock) {
-      setStockLabelShrink(false);
-    }
-  };
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
 const handleSubmit = async () => {
   try {
-    const response = await axios.post("http://localhost:3000/products", {
+    console.log(process.env.REACT_APP_BACKEND_URL)
+    const response = await axios.post(`/products`, {
       name: productName,
       stock: parseInt(stock, 10),
     });
@@ -145,8 +124,6 @@ const handleSubmit = async () => {
                 variant="outlined"
                 value={productName}
                 onChange={handleProductNameChange}
-                onFocus={handleNameLabelShrink}
-                onBlur={handleNameLabelBlur}
                 size="medium"
                 fullWidth
               />
@@ -160,8 +137,6 @@ const handleSubmit = async () => {
                 variant="outlined"
                 value={stock}
                 onChange={handleStockChange}
-                onFocus={handleStockLabelShrink}
-                onBlur={handleStockLabelBlur}
                 size="medium"
                 fullWidth
               />

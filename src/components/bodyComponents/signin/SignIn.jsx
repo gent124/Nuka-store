@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from '../../../utils/axios.config'
 const defaultTheme = createTheme();
 
 // eslint-disable-next-line react/prop-types
@@ -38,7 +38,7 @@ export default function SignInSide({ onSignIn }) {
     }
   
     try {
-      const response = await axios.post("http://localhost:3000/auth", {
+      const response = await axios.post(`/auth`, {
         email,
         password,
       });
@@ -66,7 +66,7 @@ export default function SignInSide({ onSignIn }) {
           sm={4}
           md={7}
           style={{
-            backgroundImage: "url(/assets/171468038277884545608818.jpeg)",
+            backgroundImage: "url(src/assets/171468038277884545608818.jpeg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"

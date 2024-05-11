@@ -8,14 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import axios  from "axios";
+import axios  from './../../../utils/axios.config';
 export default function Overview() {
   const [overviewStats, setOverviewStats] = useState([]);
 
   const getStats = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/products/overview"
+      const response = await axios.post(`/products/overview`
       );
       if (response.status === 200) {
         setOverviewStats(response.data);

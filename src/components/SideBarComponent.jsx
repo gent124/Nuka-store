@@ -39,7 +39,7 @@ export default function SideBarComponent() {
     //   component: <HomeOutlined fontSize="medium" color="primary" />,
     // },
     {
-      title: "Inventory",
+      title: "Depo",
       component: <Inventory2Outlined fontSize="medium" color="primary" />,
     },
     // {

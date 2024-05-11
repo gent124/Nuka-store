@@ -20,7 +20,6 @@ import {
   // PeopleAltOutlined,
 } from "@mui/icons-material";
 import {  useLocation, useNavigate } from "react-router-dom";
-import Inventory from "./bodyComponents/inventory/Inventory";
 
 export default function SideBarComponent() {
   const navigate = useNavigate();
@@ -40,8 +39,8 @@ export default function SideBarComponent() {
     //   component: <HomeOutlined fontSize="medium" color="primary" />,
     // },
     {
-      title: "Depo",
-      component: <Inventory fontSize="medium" color="primary" />,
+      title: "Inventory",
+      component: <Inventory2Outlined fontSize="medium" color="primary" />,
     },
     // {
     //   title: "Orders",
